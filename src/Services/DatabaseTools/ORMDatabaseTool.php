@@ -79,7 +79,8 @@ class ORMDatabaseTool extends AbstractDatabaseTool
     {
         $isMysql = ($this->connection->getDatabasePlatform() instanceof MySqlPlatform);
 
-        if ($isMysql) {
+        // Don't disable FOREIGN_KEY_CHECKS is the database is not created yet
+        if ($isMysql && $this->connection->isConnected()) {
             $this->connection->query('SET FOREIGN_KEY_CHECKS=0');
         }
 
