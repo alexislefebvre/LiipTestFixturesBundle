@@ -61,10 +61,6 @@ class ORMDatabaseTool extends AbstractDatabaseTool
 
         unset($params['dbname']);
 
-        // Unset url to avoid issue:
-        // “An exception occurred in driver: SQLSTATE[HY000] [1049] Unknown database 'test'”
-        unset($params['url']);
-
         $tmpConnection = DriverManager::getConnection($params);
         $tmpConnection->connect();
 
