@@ -17,6 +17,9 @@ use Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 use Liip\Acme\Tests\AppConfigPhpcr\AppConfigPhpcrKernel;
+use Liip\Acme\Tests\Traits\ContainerProvider;
+use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
+use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -28,14 +31,20 @@ use Symfony\Component\Console\Tester\CommandTester;
  * Tests/App/AppKernel.php.
  * So it must be loaded in a separate process.
  *
+ * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  */
 class ConfigPhpcrTest extends KernelTestCase
 {
+    use ContainerProvider;
+
     /**
      * @var EntityManager
      */
     private $entityManager;
+
+    /** @var AbstractDatabaseTool */
+    protected $databaseTool;
 
     protected static function getKernelClass(): string
     {
@@ -50,11 +59,17 @@ class ConfigPhpcrTest extends KernelTestCase
 
         parent::setUp();
 
+        self::bootKernel();
+
+        $this->databaseTool = $this->getTestContainer()->get(DatabaseToolCollection::class)->get('PHPCR');
+
+        $this->entityManager = $this->getTestContainer()->get('doctrine.orm.entity_manager');
+
         // https://github.com/liip/LiipTestFixturesBundle/blob/master/doc/database.md#non-sqlite
         if (!isset($metadatas)) {
             $metadatas = $this->entityManager->getMetadataFactory()->getAllMetadata();
         }
-        $schemaTool = new SchemaTool($em);
+        $schemaTool = new SchemaTool($this->entityManager);
         $schemaTool->dropDatabase();
         if (!empty($metadatas)) {
             $schemaTool->createSchema($metadatas);
@@ -65,9 +80,12 @@ class ConfigPhpcrTest extends KernelTestCase
 
     public function testLoadFixturesPhPCr(): void
     {
+        $registry = $this->getTestContainer()->get('doctrine_phpcr');
+        $this->databaseTool->setRegistry($registry);
+
         $fixtures = $this->databaseTool->loadFixtures([
             'Liip\Acme\Tests\AppConfigPhpcr\DataFixtures\PHPCR\LoadTaskData',
-        ], false, null, 'doctrine_phpcr');
+        ]);
 
         $this->assertInstanceOf(
             'Doctrine\Bundle\PHPCRBundle\DataFixtures\PHPCRExecutor',
