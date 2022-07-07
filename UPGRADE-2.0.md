@@ -65,8 +65,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ConfigTest extends KernelTestCase
 {
-    /** @var AbstractDatabaseTool */
-    protected $databaseTool;
+    protected AbstractDatabaseTool $databaseTool;
     
     public function setUp(): void
     {
@@ -133,8 +132,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ConfigTest extends WebTestCase
 {
-    /** @var AbstractDatabaseTool */
-    protected $databaseTool;
+    protected AbstractDatabaseTool $databaseTool;
     
     private $testClient = null;
     

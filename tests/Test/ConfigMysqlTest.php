@@ -54,11 +54,8 @@ class ConfigMysqlTest extends KernelTestCase
 {
     use ContainerProvider;
 
-    /** @var ObjectRepository */
-    protected $userRepository;
-
-    /** @var AbstractDatabaseTool */
-    protected $databaseTool;
+    protected ObjectRepository $userRepository;
+    protected AbstractDatabaseTool $databaseTool;
 
     protected function setUp(): void
     {

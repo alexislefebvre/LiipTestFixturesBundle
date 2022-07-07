@@ -41,8 +41,7 @@ class ConfigPhpcrTest extends KernelTestCase
 {
     use ContainerProvider;
 
-    /** @var AbstractDatabaseTool */
-    protected $databaseTool;
+    protected AbstractDatabaseTool $databaseTool;
 
     protected function setUp(): void
     {

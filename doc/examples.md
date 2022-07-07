@@ -32,10 +32,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ExampleFunctionalTest extends WebTestCase 
 {
-    /**
-     * @var AbstractDatabaseTool
-     */
-    protected $databaseTool;
+    protected AbstractDatabaseTool $databaseTool;
 
     public function setUp(): void
     {

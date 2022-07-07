@@ -44,10 +44,8 @@ class ConfigSqliteTest extends KernelTestCase
 {
     use ContainerProvider;
 
-    /** @var AbstractDatabaseTool */
-    protected $databaseTool;
-    /** @var ObjectRepository */
-    private $userRepository;
+    protected AbstractDatabaseTool $databaseTool;
+    private ObjectRepository $userRepository;
 
     protected function setUp(): void
     {

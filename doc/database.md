@@ -25,8 +25,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MyControllerTest extends WebTestCase
 {
-+    /** @var AbstractDatabaseTool */
-+    protected $databaseTool;
++    protected AbstractDatabaseTool $databaseTool;
 
     public function setUp(): void
     {
@@ -155,10 +154,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class MyControllerTest extends WebTestCase
 {
-    /**
-     * @var AbstractDatabaseTool
-     */
-    protected $databaseTool;
+    protected AbstractDatabaseTool $databaseTool;
 
     public function setUp(): void
     {
