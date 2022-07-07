@@ -10,15 +10,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['7.2','7.3', '7.4', '8.0']
+        php-version: ['7.4', '8.0', '8.1']
         composer-flags: ['']
         symfony-version: ['']
         include:
-          - php-version: 7.2
+          - php-version: 7.4
+            symfony-version: "^4.4"
             # Use "update" instead of "install" since it allows using the "--prefer-lowest" option
             composer-flags: "update --prefer-lowest"
-          - php-version: 7.2
-            symfony-version: "^4.4"
           - php-version: 8.0
             symfony-version: "^6.0"
           - php-version: 8.1
