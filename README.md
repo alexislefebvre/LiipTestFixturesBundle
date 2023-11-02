@@ -11,6 +11,7 @@ test-databases and loading fixtures.
 Documentation
 ------------
 
+
 * [Installation](doc/installation.md)
 * [Upgrade to version 2.x](UPGRADE-2.0.md)
 * [Configuration](doc/configuration.md)
